@@ -1,0 +1,25 @@
+https://leetcode.com/problems/find-target-indices-after-sorting-array/description/
+
+class Solution {
+    public List<Integer> targetIndices(int[] nums, int target) {
+        Arrays.sort(nums);
+        List<Integer> ans = new ArrayList<>();
+        int low = 0;
+        int high = nums.length - 1;
+        while(low<=high){
+            int mid = (low + (high - low)/2);
+            if(nums[mid] == target){
+                ans.add(mid);
+            }
+
+            if(nums[mid] < target){
+                low = mid+1;
+            }else{
+                high = mid-1;
+            }
+        }
+        Collections.sort(ans);
+        return ans;
+    }
+}
+
