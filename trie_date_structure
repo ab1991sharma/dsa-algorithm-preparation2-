@@ -1,0 +1,56 @@
+Creation and searching functionality 
+
+// Online Java Compiler
+// Use this editor to write, compile and run your Java code online
+class Trie{
+    
+public static void main(String args[]) {
+       String words[] = {"the", "a", "there", "their", "any", "thee"};
+       for (String word : words) {
+           Node.insertWord(word);
+           System.out.println("inserted " + word +" ");
+           Node.searchTheWord(word);
+           System.out.println("searchTheWord " + Node.searchTheWord(word) + " ");
+       };
+       
+       
+   }
+ static class Node{
+    Node[] childrens = new Node[26];
+    boolean eow;
+    
+    Node(){
+      for(int i=0;i<26;i++){
+          childrens[i] = null;
+      }    
+    }
+    static Node root = new Node();
+   static void insertWord(String str){
+        int idx = 0;
+        Node curr = root;
+        int n = str.length();
+        for(int i=0;i<n;i++){
+            idx = str.charAt(i) - 'a';
+            if(curr.childrens[idx] == null){
+                curr.childrens[idx] = new Node();
+            }
+            curr = curr.childrens[idx];
+        }
+        curr.eow = true;
+    }
+    
+    static boolean searchTheWord(String word){
+        int idx = 0;
+        Node curr = root;
+        int n = word.length();
+        for(int i=0;i<n;i++){
+            idx = word.charAt(i) - 'a';
+            if(curr.childrens[idx] == null){
+                return false;
+            }
+            curr = curr.childrens[idx];
+        }
+         return curr!=null && curr.eow == true;
+    }
+  }
+}
