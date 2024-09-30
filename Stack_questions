@@ -1,0 +1,43 @@
+//Question reverse k elements in queue
+import java.util.*;
+
+class HelloWorld {
+    static Stack<Integer> stack = new Stack<>();
+    public static void main(String[] args) {
+        Queue<Integer> queue = new LinkedList<>();
+        for(int i=1;i<=6;i++){
+            queue.add(i);
+        }
+        int k = 2;
+        Iterator iterator1 = queue.iterator();
+        System.out.println("Before reversing");
+        while (iterator1.hasNext()) {
+            System.out.print(iterator1.next() + " ");
+        }
+        Queue<Integer> ans = reverseFirstKElementInQueue(queue,k);
+        Iterator iterator2 = ans.iterator();
+        System.out.println("After reversing");
+        while (iterator2.hasNext()) {
+            System.out.print(iterator2.next() + " ");
+        }
+        System.out.println("");
+    }
+    
+    public static Queue<Integer> reverseFirstKElementInQueue(Queue<Integer> queue,int k){
+        for(int i=1;i<=k;i++){
+            stack.push(queue.remove());
+        }
+        int topOfStack = stack.peek();
+        while(!stack.isEmpty()){
+            queue.add(stack.pop());
+        }
+        while(!queue.isEmpty()){
+            int x = queue.peek();
+            if(x == topOfStack){
+                break;
+            }
+            queue.add(queue.remove());
+        }
+        return queue;
+    }
+}
